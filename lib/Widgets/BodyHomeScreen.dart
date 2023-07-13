@@ -74,7 +74,7 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(top: 32, right: 32),
+                            padding: const EdgeInsets.only(top: 16, right: 16),
                             child: Align(
                               alignment: Alignment.topRight,
                               child: IconButton(
@@ -195,6 +195,7 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
                         ],
                       ),
                     ),
+                    const SizedBox(height:10),
                     SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 32),
