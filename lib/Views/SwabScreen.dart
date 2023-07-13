@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'Forecast.dart';
+import 'ForecastScreen.dart';
 import 'HomeScreen.dart';
 
 class SwapeScreens extends StatefulWidget {
@@ -24,7 +24,7 @@ class _SwapeScreensState extends State<SwapeScreens> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
-        children: const [HomeScreen(), forecast()],
+        children: const [HomeScreen(), ForecastScreen()],
       ),
     );
   }

@@ -18,26 +18,28 @@ class ItemBuilderScrollHours extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScrollablePositionedList.separated(
-        scrollDirection: Axis.horizontal,
-        itemScrollController: ScrollController,
-        itemBuilder: (context, index) {
+      scrollDirection: Axis.horizontal,
+      itemScrollController: ScrollController,
+      itemBuilder: (context, index) {
+        DateTime now = DateTime.now();
+        int currentHour = int.parse(DateFormat('H').format(now));
+        DateTime forecastHour =
+            weatherModel.getForecastHoursData()[index]['date'];
 
-          DateTime now = DateTime.now();
-          int currentHour = int.parse(DateFormat('H').format(now));
-          DateTime forecastHour = weatherModel.getForecastHoursData()[index]['date'];
+        bool isSelected = currentHour == forecastHour.hour;
 
-          bool isSelected = currentHour == forecastHour.hour;
-
-          return TodayListViewItem(
-
-              isSelected:isSelected,
-             degree: '${weatherModel.getForecastHoursData()[index]['avgtemp'].toInt()}'
-              ,hour:DateFormat('HH:mm').format(forecastHour),
-              image: weatherModel.getimage(weatherModel.getForecastHoursData()[index]['state'])
-          );
-
-        },
-        separatorBuilder: (context, index) => SizedBox(width: 20,),
-        itemCount: 24);
+        return TodayListViewItem(
+            isSelected: isSelected,
+            degree:
+                '${weatherModel.getForecastHoursData()[index]['avgtemp'].toInt()}',
+            hour: DateFormat('HH:mm').format(forecastHour),
+            image: weatherModel
+                .getimage(weatherModel.getForecastHoursData()[index]['state']));
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 20,
+      ),
+      itemCount: 24,
+    );
   }
 }

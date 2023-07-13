@@ -17,12 +17,11 @@ class BodyForcastScreen extends StatelessWidget {
 
   BodyForcastScreen({super.key});
 
-
   @override
   Widget build(BuildContext context) {
     WeatherModel weatherModel = BlocProvider.of<WeatherCubit>(context).weather!;
-    scrollToCurrentState( DateTime.now().hour,scrollControllerHour);
-    scrollToCurrentState( DateTime.now().day,scrollControllerDays);
+    scrollToCurrentState(DateTime.now().hour, scrollControllerHour);
+    scrollToCurrentState(DateTime.now().day, scrollControllerDays);
 
     return Padding(
       padding: const EdgeInsets.only(left: 32),
@@ -38,19 +37,22 @@ class BodyForcastScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                height: 200,
+                height: 180,
                 child: ItemBuilderScrollHours(
                   weatherModel: weatherModel,
                   ScrollController: scrollControllerHour,
                 ),
               ),
-              const SizedBox(height: 40,),
-
-          const Text(
-            '7 days forecast',
-            style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-          ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 40,
+              ),
+              const Text(
+                '7 days forecast',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
                 height: 250,
                 child: ItemBuilderScrollDays(
@@ -58,24 +60,25 @@ class BodyForcastScreen extends StatelessWidget {
                   ScrollController: scrollControllerDays,
                 ),
               ),
-              const SizedBox(height: 40,),
-
+              const SizedBox(
+                height: 40,
+              ),
               const Text(
                 '40 days forecast',
                 style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 20,),
+              const SizedBox(
+                height: 20,
+              ),
               SizedBox(
-                height: 250,
+                height: 220,
                 child: ItemBuilderScrollMonth(
                   weatherModel: weatherModel,
                   ScrollController: scrollControllermonth,
                 ),
               ),
-
             ],
-
-    ),
+          ),
         ),
       ),
     );

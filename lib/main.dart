@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Weather',
         theme: ThemeData(
-          fontFamily:'Maven Pro',
+          fontFamily: 'Maven Pro',
           brightness: Brightness.dark,
           useMaterial3: true,
         ),

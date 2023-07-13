@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../Widgets/BodyForcastScreen.dart';
 
-class forecast extends StatelessWidget {
+class ForecastScreen extends StatelessWidget {
 
-  const forecast({Key? key}) : super(key: key);
+  const ForecastScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

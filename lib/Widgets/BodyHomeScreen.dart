@@ -19,7 +19,6 @@ class BodyHomeScreen extends StatefulWidget {
 }
 
 class _BodyHomeScreenState extends State<BodyHomeScreen> {
-
   @override
   void initState() {
     super.initState();
@@ -33,13 +32,13 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
     DateTime weatherDate =
         BlocProvider.of<WeatherCubit>(context).weather?.date ?? DateTime.now();
     String dayName =
-    DateFormat.EEEE().format(weatherDate); // Day name (e.g., Monday)
+        DateFormat.EEEE().format(weatherDate); // Day name (e.g., Monday)
     String dayNumber =
-    DateFormat.d().format(weatherDate); // Day number (1 to 31)
+        DateFormat.d().format(weatherDate); // Day number (1 to 31)
     String month =
-    DateFormat.MMMM().format(weatherDate); // Month name (e.g., January)
+        DateFormat.MMMM().format(weatherDate); // Month name (e.g., January)
     final weatherCubit = BlocProvider.of<WeatherCubit>(context);
-
+    double screenWidth = MediaQuery.of(context).size.width;
 
     return BlocListener<WeatherCubit, WeatherState>(
       listener: (context, state) {
@@ -49,173 +48,179 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
           });
         }
         if (state is PermissionFailure) {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return SearchScreen();
-          },));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) {
+              return SearchScreen();
+            }),
+          );
         }
-
       },
       child: weatherModel == null
           ? CustomProgressIndicator()
           : SingleChildScrollView(
-            child: Container(
-              child: Column(
-        children: [
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  gradient: gradient,
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(32),
-                    bottomRight: Radius.circular(32),
-                  ),
-                ),
+              child: Container(
                 child: Column(
                   children: [
-                    SafeArea(
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: IconButton(
-                          icon: Icon(Icons.search),
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) {
-                                return SearchScreen();
-                              }),
-                            );
-                          },
+                    Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: gradient,
+                        borderRadius: const BorderRadius.only(
+                          bottomLeft: Radius.circular(32),
+                          bottomRight: Radius.circular(32),
                         ),
                       ),
-                    ),
-
-                    Text(
-                      weatherCubit.cityname,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,                  ),
-
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      '$dayName, $dayNumber $month',
-                      style: const TextStyle(
-                        color: Colors.white30,
-                        fontSize: 20,
-                      ),
-                    ),
-                    Image.asset(
-                      weatherModel.getimage(),
-                      width: 150,
-                      height: 150,
-                    ),
-                    Text(
-                      weatherModel.state,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '${weatherModel.avgtemp.toInt()}\u00B0',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 75,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
                         children: [
-                          DetailsWidget(
-                            name: 'Wind',
-                            image: Assets.imagesFog,
-                            number: '${weatherModel.wind.toInt()} km/h',
-                          ),
-                          SizedBox(
-                            height: 120,
-                            child: VerticalDivider(
-                              color: Colors.grey.withOpacity(0.4),
-                              thickness: 2,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 32, right: 32),
+                            child: Align(
+                              alignment: Alignment.topRight,
+                              child: IconButton(
+                                icon: Icon(Icons.search,
+                                    color: Colors.white,
+                                    size: WidthVerySmallImage),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(builder: (context) {
+                                      return SearchScreen();
+                                    }),
+                                  );
+                                },
+                              ),
                             ),
                           ),
-                          DetailsWidget(
-                            name: 'Humidity',
-                            image: Assets.imagesHumidity,
-                            number: '${weatherModel.Humidity}%',
-                          ),
-                          SizedBox(
-                            height: 120,
-                            child: VerticalDivider(
-                              color: Colors.grey.withOpacity(0.4),
-                              thickness: 2,
+                          Text(
+                            weatherCubit.cityname,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                          DetailsWidget(
-                            name: 'Chance of rain',
-                            image: Assets.imagesRain,
-                            number: '${weatherModel.Chance_of_rain}%',
+                          const SizedBox(height: 10),
+                          Text(
+                            '$dayName, $dayNumber $month',
+                            style: const TextStyle(
+                              color: Colors.white30,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Image.asset(
+                            weatherModel.getimage(weatherModel.state),
+                            width: screenWidth * 0.5,
+                          ),
+                          FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              weatherModel.state,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 45,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: 'Hubballi',
+                              ),
+                            ),
+                          ),
+                          Text(
+                            '${weatherModel.avgtemp.toInt()}\u00B0',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 75,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Hubballi',
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                DetailsWidget(
+                                  name: 'Wind',
+                                  image: Assets.imagesFog,
+                                  number: '${weatherModel.wind.toInt()} km/h',
+                                ),
+                                SizedBox(
+                                  height: 120,
+                                  child: VerticalDivider(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    thickness: 2,
+                                  ),
+                                ),
+                                DetailsWidget(
+                                  name: 'Humidity',
+                                  image: Assets.imagesHumidity,
+                                  number: '${weatherModel.Humidity}%',
+                                ),
+                                SizedBox(
+                                  height: 120,
+                                  child: VerticalDivider(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    thickness: 2,
+                                  ),
+                                ),
+                                DetailsWidget(
+                                  name: 'Chance of rain',
+                                  image: Assets.imagesRain,
+                                  number: '${weatherModel.Chance_of_rain}%',
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 32),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          BottomDataWeather(
+                            condation_name: 'Air quality',
+                            condation_number: '${weatherModel.airquality}',
+                          ),
+                          BottomDataWeather(
+                            condation_name: 'UV',
+                            condation_number: '${weatherModel.uv}',
+                          ),
+                          BottomDataWeather(
+                            condation_name: 'Wind',
+                            condation_number: '${weatherModel.wind}',
+                          ),
+                        ],
+                      ),
+                    ),
+                    SafeArea(
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 32),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            BottomDataWeather(
+                              condation_name: 'Pressure',
+                              condation_number: '${weatherModel.pressure}',
+                            ),
+                            BottomDataWeather(
+                              condation_name: 'Precipitation',
+                              condation_number: '${weatherModel.precipitation}',
+                            ),
+                            BottomDataWeather(
+                              condation_name: 'Visibility',
+                              condation_number: '${weatherModel.visibility}',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
-
-              Padding(
-                padding: const EdgeInsets.only(top: 32, bottom: 32),
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    BottomDataWeather(
-                      condation_name: 'Air quality',
-                      condation_number: '${weatherModel.airquality}',
-                    ),
-                    BottomDataWeather(
-                      condation_name: 'UV',
-                      condation_number: '${weatherModel.uv}',
-                    ),
-                    BottomDataWeather(
-                      condation_name: 'Wind',
-                      condation_number: '${weatherModel.wind}',
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 32),
-          SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.only(bottom: 32),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      BottomDataWeather(
-                        condation_name: 'Pressure',
-                        condation_number: '${weatherModel.pressure}',
-                      ),
-                      BottomDataWeather(
-                        condation_name: 'Precipitation',
-                        condation_number: '${weatherModel.precipitation}',
-                      ),
-                      BottomDataWeather(
-                        condation_name: 'Visibility',
-                        condation_number: '${weatherModel.visibility}',
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-        ],
-      ),
             ),
-          ),
     );
   }
 }

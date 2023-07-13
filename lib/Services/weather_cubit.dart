@@ -6,14 +6,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'package:untitled16/models/WeatherModel.dart';
 
-
 part 'weather_state.dart';
 
 class WeatherCubit extends Cubit<WeatherState> {
   WeatherCubit() : super(WeatherInitial());
   WeatherModel? weather;
-  String cityname='';
-  Future<String> determineCityName()async {
+  String cityname = '';
+  Future<String> determineCityName() async {
     bool serviceEnabled;
     LocationPermission permission;
     // Test if location services are enabled.
@@ -54,7 +53,7 @@ class WeatherCubit extends Cubit<WeatherState> {
       if (placemarks.isNotEmpty) {
         Placemark placemark = placemarks[0];
         String cityName = placemark.locality ?? '';
-        cityname=cityName;
+        cityname = cityName;
         getdata(cityname);
         return cityName;
       }
@@ -64,27 +63,22 @@ class WeatherCubit extends Cubit<WeatherState> {
 
     return ''; // Return an empty string if the city name couldn't be retrieved
   }
-  Future<WeatherModel?> getdata(String cityname) async{
+
+  Future<WeatherModel?> getdata(String cityname) async {
     try {
       emit(WeatherLoading());
       Uri url = Uri.parse(
-              'https://api.weatherapi.com/v1/forecast.json?key=0ea337b817234e6a93d35847232006&q=$cityname&days=40');
-      http.Response response =await http.get(url);
-      Map<String,dynamic>data=jsonDecode(response.body);
+          'https://api.weatherapi.com/v1/forecast.json?key=0ea337b817234e6a93d35847232006&q=$cityname&days=40');
+      http.Response response = await http.get(url);
+      Map<String, dynamic> data = jsonDecode(response.body);
       emit(WeatherSuccess());
-      weather= WeatherModel.fromjson(data);
-
+      weather = WeatherModel.fromjson(data);
       return weather;
     } catch (e) {
       emit(WeatherFailure());
 
-      throw Exception('Failed to fetch weather data'); // Throw an exception instead of returning null
-
+      throw Exception(
+          'Failed to fetch weather data'); // Throw an exception instead of returning null
     }
-
-
   }
-
-
-
 }

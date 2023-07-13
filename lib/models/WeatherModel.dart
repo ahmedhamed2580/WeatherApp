@@ -1,7 +1,6 @@
-import 'package:intl/intl.dart';
 import 'package:untitled16/generated/assets.dart';
 
-class WeatherModel{
+class WeatherModel {
   DateTime date;
   String state;
   double avgtemp;
@@ -14,9 +13,8 @@ class WeatherModel{
   double pressure;
   double precipitation;
   double visibility;
-  List<dynamic>forecasthours;
-  List<dynamic>forecastdays;
-
+  List<dynamic> forecasthours;
+  List<dynamic> forecastdays;
 
   WeatherModel({
     required this.state,
@@ -33,33 +31,30 @@ class WeatherModel{
     required this.visibility,
     required this.forecasthours,
     required this.forecastdays,
-
-
-
   });
-  factory WeatherModel.fromjson(var data){
-    var forecast=data['forecast']['forecastday'][0]['day'];
-    var current=data['current'];
-    var forecasthours=data['forecast']['forecastday'][2]['hour'];
-    var forecastdays=data['forecast']['forecastday'];
+
+  factory WeatherModel.fromjson(var data) {
+    var forecast = data['forecast']['forecastday'][0]['day'];
+    var current = data['current'];
+    var forecasthours = data['forecast']['forecastday'][2]['hour'];
+    var forecastdays = data['forecast']['forecastday'];
 
     return WeatherModel(
-        state: forecast['condition']['text'],
-        avgtemp: forecast['avgtemp_c'],
-        Chance_of_rain: forecast['daily_chance_of_rain'],
-        wind: current['wind_kph'],
-        Humidity: current['humidity'],
-        date: DateTime.parse(current['last_updated']),
-        image:current['condition']['icon'],
-        airquality:current['wind_degree'] ,
-        uv:current['uv'],
-        pressure:current['pressure_mb'] ,
-        precipitation:current['precip_mm'] ,
-        visibility: current['vis_km'],
-        forecasthours:forecasthours,
-        forecastdays: forecastdays,
+      state: forecast['condition']['text'],
+      avgtemp: forecast['avgtemp_c'],
+      Chance_of_rain: forecast['daily_chance_of_rain'],
+      wind: current['wind_kph'],
+      Humidity: current['humidity'],
+      date: DateTime.parse(current['last_updated']),
+      image: current['condition']['icon'],
+      airquality: current['wind_degree'],
+      uv: current['uv'],
+      pressure: current['pressure_mb'],
+      precipitation: current['precip_mm'],
+      visibility: current['vis_km'],
+      forecasthours: forecasthours,
+      forecastdays: forecastdays,
     );
-
   }
 
   List<Map<dynamic, dynamic>> getForecastHoursData() {
@@ -67,34 +62,33 @@ class WeatherModel{
 
     for (var hour in forecasthours) {
       var hourData = {
-
         'date': DateTime.parse(hour['time']),
         'avgtemp': hour['temp_c'],
-        'state':hour['condition']['text'],
+        'state': hour['condition']['text'],
       };
       forecastHoursData.add(hourData);
-          }
+    }
     return forecastHoursData;
   }
+
   List<Map<dynamic, dynamic>> getForecastDaysData() {
     List<Map<dynamic, dynamic>> forecastDaysData = [];
 
     for (var day in forecastdays) {
       var DaysData = {
-
         'date': DateTime.parse(day['date']),
         'avgtemp': day['day']['avgtemp_c'],
         'maxtemp': day['day']['maxtemp_c'],
         'mintemp': day['day']['mintemp_c'],
-        'state':day['day']['condition']['text'],
+        'state': day['day']['condition']['text'],
       };
       forecastDaysData.add(DaysData);
-          }
+    }
     return forecastDaysData;
   }
+
   @override
   String toString() {
-    // TODO: implement toString
     return super.toString();
   }
 
@@ -148,7 +142,4 @@ class WeatherModel{
     }
     return Assets.imagesCLEARSUNNY;
   }
-
 }
-
-

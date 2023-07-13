@@ -21,20 +21,22 @@ class ItemBuilderScrollMonth extends StatelessWidget {
       scrollDirection: Axis.vertical,
       itemScrollController: ScrollController,
       itemBuilder: (context, index) {
-        DateTime date= weatherModel.getForecastDaysData()[index]['date'];
+        DateTime date = weatherModel.getForecastDaysData()[index]['date'];
         String dayName = DateFormat.EEEE().format(date);
 
         return MonthListViewItem(
-
-            maxtemp:'${weatherModel.getForecastDaysData()[index]['maxtemp'].toInt()}',
-            mintemp:'${weatherModel.getForecastDaysData()[index]['mintemp'].toInt()}',
+            maxtemp:
+                '${weatherModel.getForecastDaysData()[index]['maxtemp'].toInt()}',
+            mintemp:
+                '${weatherModel.getForecastDaysData()[index]['mintemp'].toInt()}',
             day: dayName,
-            image: weatherModel.getimage(weatherModel.getForecastDaysData()[index]['state'])
-        );
-
+            image: weatherModel
+                .getimage(weatherModel.getForecastDaysData()[index]['state']));
       },
-      separatorBuilder: (context, index) => const SizedBox(height: 10,),
-      itemCount:weatherModel.getForecastDaysData().length,
+      separatorBuilder: (context, index) => const SizedBox(
+        height: 10,
+      ),
+      itemCount: weatherModel.getForecastDaysData().length,
     );
   }
 }

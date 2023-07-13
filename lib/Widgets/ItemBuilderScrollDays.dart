@@ -18,30 +18,33 @@ class ItemBuilderScrollDays extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScrollablePositionedList.separated(
-        scrollDirection: Axis.horizontal,
-        itemScrollController: ScrollController,
-        itemBuilder: (context, index) {
-         DateTime date= weatherModel.getForecastDaysData()[index]['date'];
-         String dayName = DateFormat.EEEE().format(date).substring(0, 3).toUpperCase();
-         String monthName= DateFormat.MMMM().format(date);
-         String monthNumber= DateFormat.d().format(date);
-          DateTime now = DateTime.now();
-          int currentDay = int.parse(DateFormat('d').format(now));
-          DateTime forecastDay = weatherModel.getForecastDaysData()[index]['date'];
-          bool isSelected = currentDay == forecastDay;
+      scrollDirection: Axis.horizontal,
+      itemScrollController: ScrollController,
+      itemBuilder: (context, index) {
+        DateTime date = weatherModel.getForecastDaysData()[index]['date'];
+        String dayName =
+            DateFormat.EEEE().format(date).substring(0, 3).toUpperCase();
+        String monthName = DateFormat.MMMM().format(date);
+        String monthNumber = DateFormat.d().format(date);
+        DateTime now = DateTime.now();
+        int currentDay = int.parse(DateFormat('d').format(now));
+        int forecastDay = int.parse(DateFormat('d').format(date));
 
-          return WeakListViewItem(
+        bool isSelected = currentDay == forecastDay;
 
-              isSelected:isSelected,
-              day: dayName,
-              month: '$monthName,$monthNumber' ,
-              degree: '${weatherModel.getForecastDaysData()[index]['avgtemp'].toInt()}',
-              image: weatherModel.getimage(weatherModel.getForecastDaysData()[index]['state'])
-          );
-
-        },
-        separatorBuilder: (context, index) => SizedBox(width: 20,),
-        itemCount:weatherModel.getForecastDaysData().length,
+        return WeakListViewItem(
+            isSelected: isSelected,
+            day: dayName,
+            month: '$monthName,$monthNumber',
+            degree:
+                '${weatherModel.getForecastDaysData()[index]['avgtemp'].toInt()}',
+            image: weatherModel
+                .getimage(weatherModel.getForecastDaysData()[index]['state']));
+      },
+      separatorBuilder: (context, index) => const SizedBox(
+        width: 20,
+      ),
+      itemCount: weatherModel.getForecastDaysData().length,
     );
   }
 }

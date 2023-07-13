@@ -4,6 +4,8 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import '../Constant.dart';
 
 class CustomProgressIndicator extends StatefulWidget {
+  const CustomProgressIndicator({super.key});
+
   @override
   _CustomProgressIndicatorState createState() =>
       _CustomProgressIndicatorState();

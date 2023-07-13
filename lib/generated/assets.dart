@@ -2,6 +2,7 @@
 class Assets {
   Assets._();
 
+  static const String fontsHubballiRegular = 'assets/fonts/Hubballi-Regular.ttf';
   static const String fontsMavenProVariableFontWght = 'assets/fonts/MavenPro-VariableFont_wght.ttf';
   static const String imagesCLEARSUNNY = 'assets/images/CLEAR_SUNNY.png';
   static const String imagesCloudy = 'assets/images/Cloudy.png';
