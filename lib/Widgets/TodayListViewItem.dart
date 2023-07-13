@@ -11,10 +11,12 @@ class TodayListViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      width: 120,
+      width: (screenWidth-(20*3))/4,
       decoration:BoxDecoration(
-          borderRadius: BorderRadius.circular(50),
+          borderRadius: BorderRadius.circular(30),
           gradient: isSelected?gradient:defulatgradient,
         border: Border.all(color: Colors.grey),
 
@@ -23,9 +25,9 @@ class TodayListViewItem extends StatelessWidget {
       child:Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Text('$degree\u00B0',style: const TextStyle(fontSize: 24,fontWeight: FontWeight.bold),),
-          Image.asset(image,width: WidthSmallimage,height: HightSmallimage ),
-          Text(hour,style: const TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color:Colors.grey),),
+          Text('$degree\u00B0',style: const TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+          Image.asset(image,width:WidthVerySmallImage ,height: HightVerySmallImage ),
+          Text(hour,style: const TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color:Colors.grey),),
 
 
         ],

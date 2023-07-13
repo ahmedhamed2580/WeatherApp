@@ -24,7 +24,7 @@ class BodyForcastScreen extends StatelessWidget {
     scrollToCurrentState(DateTime.now().day, scrollControllerDays);
 
     return Padding(
-      padding: const EdgeInsets.only(left: 32),
+      padding: const EdgeInsets.only(left: 16),
       child: SingleChildScrollView(
         child: Container(
           child: Column(
@@ -37,7 +37,7 @@ class BodyForcastScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               SizedBox(
-                height: 180,
+                height: 120,
                 child: ItemBuilderScrollHours(
                   weatherModel: weatherModel,
                   ScrollController: scrollControllerHour,
@@ -54,7 +54,7 @@ class BodyForcastScreen extends StatelessWidget {
                 height: 20,
               ),
               SizedBox(
-                height: 250,
+                height: 160,
                 child: ItemBuilderScrollDays(
                   weatherModel: weatherModel,
                   ScrollController: scrollControllerDays,

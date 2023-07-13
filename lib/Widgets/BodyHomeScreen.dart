@@ -51,13 +51,13 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) {
-              return SearchScreen();
+              return const SearchScreen();
             }),
           );
         }
       },
       child: weatherModel == null
-          ? CustomProgressIndicator()
+          ? const CustomProgressIndicator()
           : SingleChildScrollView(
               child: Container(
                 child: Column(
@@ -78,14 +78,14 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
                             child: Align(
                               alignment: Alignment.topRight,
                               child: IconButton(
-                                icon: Icon(Icons.search,
+                                icon: const Icon(Icons.search,
                                     color: Colors.white,
                                     size: WidthVerySmallImage),
                                 onPressed: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(builder: (context) {
-                                      return SearchScreen();
+                                      return const SearchScreen();
                                     }),
                                   );
                                 },
@@ -195,7 +195,7 @@ class _BodyHomeScreenState extends State<BodyHomeScreen> {
                         ],
                       ),
                     ),
-                    const SizedBox(height:10),
+                    const SizedBox(height:8),
                     SafeArea(
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 32),
